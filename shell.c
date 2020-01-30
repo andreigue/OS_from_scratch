@@ -8,7 +8,7 @@
 int parse(char ui[]);
 void interpretResult(int errCode);
 
-int main(int argc, char* argv[]) {
+void main(int argc, char* argv[]) {
 	int result = 0;		//no result initially
 	char userInput[1000];	
 	

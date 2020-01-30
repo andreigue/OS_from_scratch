@@ -44,30 +44,19 @@ int interpreter(char *words[], int wordCount) {		//words[0] is cmd
 
 /////////////////////////////////////////////////////
 int run(char *words[], int wordCount){
-if(wordCount>2) return 2 ;
-int errCode = 0;
+	FILE *ptr;
+	int result = 0;
+	char curLine[200];
 
- 
-    FILE* fp = fopen(words[1], "rt");
-    if(fp == NULL) errCode = 3;	//file not found
-      char curLine[256];
-      while(fgets(curLine,sizeof(curLine), fp)){
-        errCode = parse(curLine);
+        ptr = fopen(words[1],"rt");
+        if (ptr == NULL) result = 3; // 3 = file not found
+
+while(fgets(curLine,sizeof(curLine), ptr)){
+        result = parse(curLine);
        }
-      fclose(fp);
+        fclose(ptr);
 
-return errCode;
-/*
-int errCode = 0;	//assuming it is correct for now
-char line[1000];
-FILE *p = fopen(words[0] + 2, "rt");	//+2 to skip .\ (execution)
-
-fgets(line, 999, p);
-while(!feof(p)){
-	errCode = parse(line);
-
-	}
-return 0;*/
+        return result;
 }
 ///////////////////////////////////////////////////
 int help(char *words[], int wordCount){
