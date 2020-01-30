@@ -19,7 +19,6 @@ int main(int argc, char* argv[]) {
 	while(1){
 		printf("$ ");
 		fgets(userInput, 999, stdin);
-		strtok(userInput, "\n");
 		printf("after fgets");
 		result = parse(userInput);
 		printf("after parse()");
@@ -29,26 +28,35 @@ int main(int argc, char* argv[]) {
 }
 
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//parser's job is to clean up the user's input
-int parse(char ui[]) {
-	char tmp[200];
-	char* words[100];
-	int a, b;
-	int w = 0; //word index
-	printf("inside parse()");	
-	for (a = 0; ui[a] = ' ' && a < 1000; a++);		//skip white spaces
-		while (ui[a] != '\0' && a < 1000) {
-			for (b = 0; ui[a] != '\0' && ui[a] != ' ' && a < 1000; a++, b++) {
-				tmp[b] = ui[a];		//copying char by char into tmp until reach space/EOL
-			}
-			tmp[b] = '\0'; //append "end of string" character (null) when finished copying
-			words[w] = strdup(tmp);
-			a++;
-			w++;	//if w>2, too many commands
-		}
-		return (interpreter(words,w));	//passing word count as well so it is taken care of in interpreter()
+int parse(char ui[]){
+
+  char temp[200];
+  int a,b; // input index
+  char *words[100];
+  int w = 0; // wordsIndex
+
+  for(a = 0; ui[a] == ' ' && a < 200; a++); // skip leading white spaces
+
+  while(ui[a] != '\0' && a < 200){ // until end of input
+
+    for(b = 0; ui[a] != '\0' && ui[a] != '\n' && ui[a] != ' ' && ui[a] != '\r' && a < 200; a++, b++){
+      temp[b] = ui[a]; //copying char by char into tmp until reach space/EOL
+    }
+
+    temp[b] = '\0'; //append "end of string" character (null) when finished copying
+
+    words[w] = strdup(temp); // store input word by word, without spaces
+
+    a++;
+    if (strcmp(words[w],"") != 0)
+      w++;
+
+  }
+  return interpreter(words, w);//passing word count as well so it is taken care of in interpreter()
+
 }
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void interpretResult(int errCode){
