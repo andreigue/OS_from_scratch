@@ -12,6 +12,10 @@ struct shellmem memArray[200];
 
 void initShellMemory(){
 	
+	
+	
 }
+
+
 
 
