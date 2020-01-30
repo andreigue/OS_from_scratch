@@ -1,10 +1,10 @@
-adding random comment
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
 #include "interpreter.h"
+#include "shellmemory.h"
+
 
 //function declaration
 int parse(char ui[]);
@@ -13,6 +13,7 @@ void interpretResult(int errCode);
 void main(int argc, char* argv[]) {
 	int result = 0;		//no result initially
 	char userInput[1000];	
+	initShellMemory();
 	
 	printf("Welcome to the Andrei Guevorkian shell!\n");
         printf("Version 1.0 Created January 2020\n");
