@@ -19,9 +19,7 @@ int main(int argc, char* argv[]) {
 	while(1){
 		printf("$ ");
 		fgets(userInput, 999, stdin);
-		printf("after fgets");
 		result = parse(userInput);
-		printf("after parse()");
 		interpretResult(result);	//gives error message if needed
 	}
 	
@@ -60,8 +58,8 @@ int parse(char ui[]){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void interpretResult(int errCode){
-	if(errCode = '0') printf("good command");
-	if(errCode = '1') printf("not right amount of arguments for this command. Enter 'help' to see possibilities");		
+//	if(errCode = '0') printf("good command");
+//	if(errCode = '1') printf("not right amount of arguments for this command. Enter 'help' to see possibilities");		
 }
 
 

@@ -44,7 +44,20 @@ int interpreter(char *words[], int wordCount) {		//words[0] is cmd
 
 /////////////////////////////////////////////////////
 int run(char *words[], int wordCount){
+if(wordCount>2) return 2 ;
+int errCode = 0;
 
+ 
+    FILE* fp = fopen(words[1], "rt");
+    if(fp == NULL) errCode = 3;	//file not found
+      char curLine[256];
+      while(fgets(curLine,sizeof(curLine), fp)){
+        errCode = parse(curLine);
+       }
+      fclose(fp);
+
+return errCode;
+/*
 int errCode = 0;	//assuming it is correct for now
 char line[1000];
 FILE *p = fopen(words[0] + 2, "rt");	//+2 to skip .\ (execution)
@@ -54,7 +67,7 @@ while(!feof(p)){
 	errCode = parse(line);
 
 	}
-return 0;
+return 0;*/
 }
 ///////////////////////////////////////////////////
 int help(char *words[], int wordCount){
@@ -76,12 +89,15 @@ int quit(char *words[], int wordCount){
 }
 //////////////////////////////////////////////////
 int set(char *words[], int wordCount){
+if(wordCount>3) return 2;
 return 0;
 }
 
 
 ////////////////////////////////////////////////
 int print(char *words[], int wordCount){
+if(wordCount>2) return 2;
+
 return 0;
 }
 
