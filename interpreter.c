@@ -13,21 +13,22 @@ int print(char *words[], int wordCount);
 
 int interpreter(char *words[], int wordCount) {		//words[0] is cmd
 	int errCode = 0;
+	if (strcmp(words[0], "") == 0) errCode = 0;		//in case need this??????????????????????
 
 	//user wants to execute a script
-	if (strcmp(words[0], "run")){	
+	else if (strcmp(words[0], "run")==0){	
 		errCode = run(words, wordCount);		
 	}
-	else if (strcmp(words[0], "help")) {
+	else if (strcmp(words[0], "help")==0) {
 		errCode = help(words,wordCount);
 	}
-	else if (strcmp(words[0], "quit")) {
+	else if (strcmp(words[0], "quit")==0) {
 		errCode = quit(words,wordCount);
 	}
-	else if (strcmp(words[0], "set")) {
+	else if (strcmp(words[0], "set")==0) {
 		errCode = set(words,wordCount);
 	}
-        else if (strcmp(words[0], "print")) {
+        else if (strcmp(words[0], "print")==0) {
                 errCode = print(words,wordCount);
         }
 
