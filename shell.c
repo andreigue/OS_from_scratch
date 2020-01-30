@@ -50,6 +50,7 @@ int parse(char ui[]){
       w++;
 
   }
+
   return interpreter(words, w);//passing word count as well so it is taken care of in interpreter()
 
 }
@@ -58,8 +59,10 @@ int parse(char ui[]){
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void interpretResult(int errCode){
-//	if(errCode = '0') printf("good command");
-//	if(errCode = '1') printf("not right amount of arguments for this command. Enter 'help' to see possibilities");		
+	if(errCode = 0) printf("good command");
+	if(errCode = 1) printf("Unknown command. Try 'help'");		
+	if(errCode = 2) printf("not right amount of arguments for this command. Enter 'help' to see possibilities");
+	if(errCode = 3) printf("File not found");
 }
 
 

@@ -60,7 +60,7 @@ while(fgets(curLine,sizeof(curLine), ptr)){
 }
 ///////////////////////////////////////////////////
 int help(char *words[], int wordCount){
-	if (wordCount > 1) return 2;		//2="not right amount of arguments for this command. Enter "help" to see possibilities"
+//	if (wordCount > 1) return 2;		//2="not right amount of arguments for this command. Enter "help" to see possibilities"
 	 printf("help\t Displays all commands\n"
           "quit\t Exits/terminates the shell\n"
           "set\t Assigns a value to shell memory (set VAR STRING)\n"
