@@ -7,13 +7,12 @@
 
 
 //function declaration
-int parse(char ui[]);
-void interpretResult(int errCode);
+void parse(char ui[]);
+//void interpretResult(int errCode);
 
 void main(int argc, char* argv[]) {
 	int result = 0;		//no result initially
 	char userInput[1000];	
-	initShellMemory();
 	
 	printf("Welcome to the Andrei Guevorkian shell!\n");
         printf("Version 1.0 Created January 2020\n");
@@ -22,14 +21,14 @@ void main(int argc, char* argv[]) {
 	while(1){
 		printf("$ ");
 		fgets(userInput, 999, stdin);
-		result = parse(userInput);
-		interpretResult(result);	//gives error message if needed
+		parse(userInput);
+		//interpretResult(result);	//gives error message if needed
 	}
 	
 }
 
 
-int parse(char ui[]){
+void parse(char ui[]){
 
   char temp[200];
   int a,b; // input index
@@ -54,18 +53,20 @@ int parse(char ui[]){
 
   }
 
-  return interpreter(words, w);//passing word count as well so it is taken care of in interpreter()
+  interpreter(words, w);//passing word count as well so it is taken care of in interpreter()
 
 }
 
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void interpretResult(int errCode){
+
+//not needed anymore bcz not returning int, just printing everything in interprter.c
+/*void interpretResult(int errCode){
 	if(errCode = 0) printf("good command");
 	if(errCode = 1) printf("Unknown command. Try 'help'");		
 	if(errCode = 2) printf("not right amount of arguments for this command. Enter 'help' to see possibilities");
 	if(errCode = 3) printf("File not found");
 }
 
-
+*/

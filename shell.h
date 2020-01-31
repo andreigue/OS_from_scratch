@@ -1,2 +1,2 @@
-int parse(char ui[]);
+void parse(char ui[]);
 

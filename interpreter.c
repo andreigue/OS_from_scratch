@@ -3,91 +3,81 @@
 #include <string.h>
 
 #include "shell.h"
-
+#include "shellmemory.h"
 //function declarations
-int run(char *words[], int wordCount);
-int help(char *words[], int wordCount);
-int quit(char *words[], int wordCount);
-int set(char *words[], int wordCount);
-int print(char *words[], int wordCount);
+void run(char *words[], int wordCount);
+void help(char *words[], int wordCount);
+void quit(char *words[], int wordCount);
+void set(char *words[], int wordCount);
+void print(char *words[], int wordCount);
 
-int interpreter(char *words[], int wordCount) {		//words[0] is cmd
-	int errCode = 0;
-	if (strcmp(words[0], "") == 0) errCode = 0;		//in case need this??????????????????????
+void interpreter(char *words[], int wordCount) {		//words[0] is cmd
+	if (strcmp(words[0], "") == 0) printf("type something");		//in case need this??????????????????????
 
 	//user wants to execute a script
 	else if (strcmp(words[0], "run")==0){	
-		errCode = run(words, wordCount);		
+		run(words, wordCount);		
 	}
 	else if (strcmp(words[0], "help")==0) {
-		errCode = help(words,wordCount);
+		help(words,wordCount);
 	}
 	else if (strcmp(words[0], "quit")==0) {
-		errCode = quit(words,wordCount);
+		quit(words,wordCount);
 	}
 	else if (strcmp(words[0], "set")==0) {
-		errCode = set(words,wordCount);
+		set(words,wordCount);
 	}
         else if (strcmp(words[0], "print")==0) {
-                errCode = print(words,wordCount);
+                print(words,wordCount);
         }
 
 	else {
-		errCode = 1;
+		printf("not a valid command");
 	}
-
-	return errCode;
 }
 
 
 
 
 /////////////////////////////////////////////////////
-int run(char *words[], int wordCount){
+void run(char *words[], int wordCount){
 	FILE *ptr;
-	int result = 0;
 	char curLine[200];
 
         ptr = fopen(words[1],"rt");
-        if (ptr == NULL) result = 3; // 3 = file not found
+        if (ptr == NULL) printf("file not found"); 
 
 while(fgets(curLine,sizeof(curLine), ptr)){
-        result = parse(curLine);
+        parse(curLine);
        }
         fclose(ptr);
-
-        return result;
 }
 ///////////////////////////////////////////////////
-int help(char *words[], int wordCount){
-//	if (wordCount > 1) return 2;		//2="not right amount of arguments for this command. Enter "help" to see possibilities"
+void help(char *words[], int wordCount){
+	if (wordCount > 1) printf("not right amount of arguments for this command. Enter 'help' for options");
 	 printf("help\t Displays all commands\n"
           "quit\t Exits/terminates the shell\n"
           "set\t Assigns a value to shell memory (set VAR STRING)\n"
           "print\t Prints STRING assigned to VAR\t (print VAR)\n"
           "run\t Execute file SCRIPT.TXT\t (run SCRIPT.TXT)\n");
-
-  return 0;
-
 }
 ////////////////////////////////////////////////////
-int quit(char *words[], int wordCount){
-  if(wordCount > 1) return 2;		//2="not right amount of arguments for this command. Enter "help" to see possibilities"
+void quit(char *words[], int wordCount){
+  if(wordCount > 1) printf("not right amount of arguments for this command. Enter 'help' for options");
   printf("Bye!\n");
   exit(0);			
 }
 //////////////////////////////////////////////////
-int set(char *words[], int wordCount){
-if(wordCount>3) return 2;
-return 0;
+void set(char *words[], int wordCount){
+if(wordCount!=3) printf("not right amount of arguments for this command. Enter 'help' for options");
+memSet(words[1], words[2]);	//set x to 10 in mem
 }
 
 
 ////////////////////////////////////////////////
-int print(char *words[], int wordCount){
-if(wordCount>2) return 2;
-
-return 0;
+void print(char *words[], int wordCount){
+if(wordCount>2) printf("not right amount of arguments for this command. Enter 'help' for options");
+printf("%s",memGet(words));
 }
 
 
