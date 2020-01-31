@@ -1,0 +1,17 @@
+help
+
+
+   help
+set x 10
+print x
+set y 9
+print y
+set y 12
+print y
+run test.txt
+quit
+
+
+
+
+
