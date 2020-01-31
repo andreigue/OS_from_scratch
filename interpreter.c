@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>		//to use isdigit(c)
 #include <string.h>
 
 #include "shell.h"
@@ -32,7 +33,7 @@ void interpreter(char *words[], int wordCount) {		//words[0] is cmd
         }
 
 	else {
-		printf("not a valid command");
+		printf("not a valid command\n");
 	}
 }
 
@@ -45,7 +46,7 @@ void run(char *words[], int wordCount){
 	char curLine[200];
 
         ptr = fopen(words[1],"rt");
-        if (ptr == NULL) printf("file not found"); 
+        if (ptr == NULL) printf("file not found\n"); 
 
 while(fgets(curLine,sizeof(curLine), ptr)){
         parse(curLine);
@@ -54,30 +55,38 @@ while(fgets(curLine,sizeof(curLine), ptr)){
 }
 ///////////////////////////////////////////////////
 void help(char *words[], int wordCount){
-	if (wordCount > 1) printf("not right amount of arguments for this command. Enter 'help' for options");
+	if (wordCount > 1) printf("not right amount of arguments for this command. Enter 'help' for options\n");
+	else{
 	 printf("help\t Displays all commands\n"
           "quit\t Exits/terminates the shell\n"
           "set\t Assigns a value to shell memory (set VAR STRING)\n"
           "print\t Prints STRING assigned to VAR\t (print VAR)\n"
           "run\t Execute file SCRIPT.TXT\t (run SCRIPT.TXT)\n");
+}	
 }
 ////////////////////////////////////////////////////
 void quit(char *words[], int wordCount){
-  if(wordCount > 1) printf("not right amount of arguments for this command. Enter 'help' for options");
-  printf("Bye!\n");
-  exit(0);			
+  	if(wordCount > 1) printf("not right amount of arguments for this command. Enter 'help' for options\n");
+	else{
+  		printf("Bye!\n");
+  		exit(0);
+	}			
 }
 //////////////////////////////////////////////////
 void set(char *words[], int wordCount){
-if(wordCount!=3) printf("not right amount of arguments for this command. Enter 'help' for options");
+if(wordCount!=3) printf("not right amount of arguments for this command. Enter 'help' for options\n");
+//check if first char of words[1] is a number
+//if (isdigit(words[1][1])) printf("invalid variable name. variable must begin with a letter\n");
+printf("inside set()     words[1]: %s, words[2]: %s\n",words[1], words[2]);
 memSet(words[1], words[2]);	//set x to 10 in mem
+
 }
 
 
 ////////////////////////////////////////////////
 void print(char *words[], int wordCount){
-if(wordCount>2) printf("not right amount of arguments for this command. Enter 'help' for options");
-printf("%s",memGet(words));
+if(wordCount>2) printf("not right amount of arguments for this command. Enter 'help' for options\n");
+
+if(varIndex(words[1])==-1) printf("variable does not exist");
+else printf("%s",memGet(words));
 }
-
-

@@ -5,50 +5,51 @@
 struct shellmem{
 	char *var;
 	char *val;
-	struct shellmem *next;
 }shellmem;
 
 
 struct shellmem memArray[200];
 
-// void initShellMemory(){}		don't need cuz already every elements points to NULL
-	
-//int firstNULLindex(){		//no time rn, but add  this and have memSet count 
-//	for 
-//}	
-	
-int memSet(char *var, char *val){
-int indexOfNULL=0;		//index of first null in the array
-for(int i=0; i<200; i++){
-	if(memArray[i].var!=NULL){ 
-	
-	if(strcmp(memArray[i].var,var)){	//replace existing value
-		memArray[i].val=val;		//set old val to new val
-		return 0;
+int varIndex(char* var){
+	int i;	
+	for (i=0; i<200; i++){	
+		
+		printf("INSIDE VARINDEX(): variable = %s value: %s index: %d \n", memArray[i].var, memArray[i].val,i);
+		if(memArray[i].var!=NULL){
+			printf("inside if stsatemenbt \n");
+			if(strcmp(memArray[i].var,var)==0) return i;
+		}
 	}
-}//if statement	
-}//for loop
-	memArray[indexOfNULL].var=var;		//else at first NULL, set var and val
-	memArray[indexOfNULL].val=val;
-	return 0;
-}//memSet function
-/*
-int getVal(char *var){	//find variable being called, and return it, along with its index. if can't find, return NULL
-
-	for (int i=0; i<200; i++){
-		if(memArray[i].var==var) return 0;	//variable found
-	}
-	
-return 0;
+	return -1;
 }
-*/
+
+void memSet(char *var, char *val){
+	int indexOfNULL=0;		//index of first null in the array
+	int index =varIndex(var);
+	int i=0;
+	if(index==-1) {
+		while(memArray[i].var!=NULL){
+			i++;
+			
+		}
+		memArray[i].var=var;
+		memArray[i].val=val;
+//		indexOfNULL++;
+		printf("inside index==-1       %s , %s \n",memArray[index].var, memArray[index].val);
+	}else{
+		memArray[index].val=val;
+		printf("Inside memSet       %s , %s\n. index of : %d\n",memArray[index].var, memArray[index].val,index);
+	}
+}//memSet function
+
+
 char* memGet(char*words[]){
 	char *zzzzzzneverwillthisbewritten;
 		for (int i=0; i<200; i++){
 		if(memArray[i].var!=NULL){	
-			if(strcmp(words[1],memArray[i].var))return memArray[i].val;
+			if(strcmp(words[1],memArray[i].var)==0)return memArray[i].val;
 		}//if statement
 	}//for loop
 	return zzzzzzneverwillthisbewritten;
 } 
-
+ 

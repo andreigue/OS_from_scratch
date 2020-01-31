@@ -8,7 +8,6 @@ set y 9
 print y
 set y 12
 print y
-run test.txt
 quit
 
 
