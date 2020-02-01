@@ -47,11 +47,12 @@ void run(char *words[], int wordCount){
 
         ptr = fopen(words[1],"rt");
         if (ptr == NULL) printf("file not found\n"); 
-
-while(fgets(curLine,sizeof(curLine), ptr)){
-        parse(curLine);
-       }
+	else{
+		while(fgets(curLine,sizeof(curLine), ptr)){
+        		parse(curLine);
+      		 }
         fclose(ptr);
+	}
 }
 ///////////////////////////////////////////////////
 void help(char *words[], int wordCount){
@@ -77,7 +78,7 @@ void set(char *words[], int wordCount){
 if(wordCount!=3) printf("not right amount of arguments for this command. Enter 'help' for options\n");
 //check if first char of words[1] is a number
 //if (isdigit(words[1][1])) printf("invalid variable name. variable must begin with a letter\n");
-printf("inside set()     words[1]: %s, words[2]: %s\n",words[1], words[2]);
+//printf("inside set()     words[1]: %s, words[2]: %s\n",words[1], words[2]);
 memSet(words[1], words[2]);	//set x to 10 in mem
 
 }
@@ -85,8 +86,9 @@ memSet(words[1], words[2]);	//set x to 10 in mem
 
 ////////////////////////////////////////////////
 void print(char *words[], int wordCount){
-if(wordCount>2) printf("not right amount of arguments for this command. Enter 'help' for options\n");
-
-if(varIndex(words[1])==-1) printf("variable does not exist");
-else printf("%s",memGet(words));
+	if(wordCount>2) printf("not right amount of arguments for this command. Enter 'help' for options\n");
+	else{
+		if(varIndex(words[1])==-1) printf("variable does not exist\n");
+		else printf("%s\n",memGet(words));
+	}
 }

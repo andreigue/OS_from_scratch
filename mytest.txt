@@ -1,13 +1,13 @@
-help
-
-
-   help
+  help
+help a
+set x 12 2
 set x 10
 print x
 set y 9
 print y
 set y 12
 print y
+run mytest.txt
 quit
 
 

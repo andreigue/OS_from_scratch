@@ -14,9 +14,9 @@ int varIndex(char* var){
 	int i;	
 	for (i=0; i<200; i++){	
 		
-		printf("INSIDE VARINDEX(): variable = %s value: %s index: %d \n", memArray[i].var, memArray[i].val,i);
+//		printf("INSIDE VARINDEX(): variable = %s value: %s index: %d \n", memArray[i].var, memArray[i].val,i);
 		if(memArray[i].var!=NULL){
-			printf("inside if stsatemenbt \n");
+//			printf("inside if stsatemenbt \n");
 			if(strcmp(memArray[i].var,var)==0) return i;
 		}
 	}
@@ -35,10 +35,10 @@ void memSet(char *var, char *val){
 		memArray[i].var=var;
 		memArray[i].val=val;
 //		indexOfNULL++;
-		printf("inside index==-1       %s , %s \n",memArray[index].var, memArray[index].val);
+//		printf("inside index==-1       %s , %s \n",memArray[index].var, memArray[index].val);
 	}else{
 		memArray[index].val=val;
-		printf("Inside memSet       %s , %s\n. index of : %d\n",memArray[index].var, memArray[index].val,index);
+//		printf("Inside memSet       %s , %s\n. index of : %d\n",memArray[index].var, memArray[index].val,index);
 	}
 }//memSet function
 
