@@ -75,11 +75,11 @@ void quit(char *words[], int wordCount){
 }
 //////////////////////////////////////////////////
 void set(char *words[], int wordCount){
-if(wordCount!=3) printf("not right amount of arguments for this command. Enter 'help' for options\n");
+if(wordCount!=3) printf("Not right amount of arguments for this command. Enter 'help' for options\n");
 //check if first char of words[1] is a number
 //if (isdigit(words[1][1])) printf("invalid variable name. variable must begin with a letter\n");
 //printf("inside set()     words[1]: %s, words[2]: %s\n",words[1], words[2]);
-memSet(words[1], words[2]);	//set x to 10 in mem
+else memSet(words[1], words[2]);	//set x to 10 in mem
 
 }
 

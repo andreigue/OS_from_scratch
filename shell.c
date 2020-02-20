@@ -5,28 +5,24 @@
 #include "interpreter.h"
 #include "shellmemory.h"
 
-
-//function declaration
 void parse(char ui[]);
-//void interpretResult(int errCode);
 
 void main(int argc, char* argv[]) {
-	int result = 0;		//no result initially
-	char userInput[1000];	
-	
-	printf("Welcome to the Andrei Guevorkian shell!\n");
+        int result = 0;         //no result initially
+        char userInput[1000];
+
+        printf("Welcome to the Andrei Guevorkian shell!\n");
         printf("Version 1.0 Created January 2020\n");
-	
 
-	while(1){
-		printf("$ ");
-		fgets(userInput, 999, stdin);
-		parse(userInput);
-		//interpretResult(result);	//gives error message if needed
-	}
-	
+
+        while(1){
+                printf("$ ");
+                fgets(userInput, 999, stdin);
+                parse(userInput);
+                //interpretResult(result);      //gives error message if needed
+        }
+
 }
-
 
 void parse(char ui[]){
 
