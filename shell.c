@@ -7,12 +7,12 @@
 
 void parse(char ui[]);
 
-void main(int argc, char* argv[]) {
-        int result = 0;         //no result initially
+void shellUI(int argc, char* argv[]){
+	int result = 0;         //no result initially
         char userInput[1000];
 
         printf("Welcome to the Andrei Guevorkian shell!\n");
-        printf("Version 1.0 Created January 2020\n");
+        printf("Version 2.0 Created February 2020\n");
 
 
         while(1){

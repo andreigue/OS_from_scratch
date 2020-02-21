@@ -11,6 +11,7 @@ void help(char *words[], int wordCount);
 void quit(char *words[], int wordCount);
 void set(char *words[], int wordCount);
 void print(char *words[], int wordCount);
+void exec(char *words[], int wordCount);
 
 void interpreter(char *words[], int wordCount) {		//words[0] is cmd
 	if (strcmp(words[0], "") == 0) printf("type something");		//in case need this??????????????????????
@@ -31,7 +32,9 @@ void interpreter(char *words[], int wordCount) {		//words[0] is cmd
         else if (strcmp(words[0], "print")==0) {
                 print(words,wordCount);
         }
-
+	else if (strcmp(words[0], "exec")==0){
+		exec(words, wordCount);
+	}
 	else {
 		printf("not a valid command\n");
 	}
@@ -39,14 +42,29 @@ void interpreter(char *words[], int wordCount) {		//words[0] is cmd
 
 
 
+/////////////////////////////////////////////////////
+void exec(char *words[], int wordCount){
+	//check if more than 3 files
+	if(wordCount>4) printf("Too many files! Calm down junior!\n");
+	else if (wordCount == 1) printf("Tip: add some file(s) you want executed.\n");
+	//check to make sure that file names are different
+	else if(strcmp(words[1],words[2])==0) printf("Error! File %s already loaded\n",words[1]);
+	else if (strcmp(words[2],words[3])==0)  printf("Error! File  %s already loaded\n",words[2]);
+	else if (strcmp(words[1],words[3])==0)  printf("Error! File %s already loaded\n",words[1]);
+	//call 
+	else{
+		printf("to be implemented\n");
+		//call myinit in kernel.c
+	}	
 
+}
 /////////////////////////////////////////////////////
 void run(char *words[], int wordCount){
 	FILE *ptr;
 	char curLine[200];
 
         ptr = fopen(words[1],"rt");
-        if (ptr == NULL) printf("file not found\n"); 
+        if (ptr == NULL) printf("File not found\n"); 
 	else{
 		while(fgets(curLine,sizeof(curLine), ptr)){
         		parse(curLine);
@@ -62,7 +80,8 @@ void help(char *words[], int wordCount){
           "quit\t Exits/terminates the shell\n"
           "set\t Assigns a value to shell memory (set VAR STRING)\n"
           "print\t Prints STRING assigned to VAR\t (print VAR)\n"
-          "run\t Execute file SCRIPT.TXT\t (run SCRIPT.TXT)\n");
+          "run\t Execute file SCRIPT.TXT\t (run SCRIPT.TXT)\n"
+	  "exec\tExecutes concurrent programs\t exec p1 p2 p3\n");
 }	
 }
 ////////////////////////////////////////////////////
