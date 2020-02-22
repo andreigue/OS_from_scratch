@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "shell.h"
+#include "cpu.h"
 
 void myinit(char* filename);
 void main(int argc, char* argv[]) {
@@ -13,16 +14,21 @@ void main(int argc, char* argv[]) {
 }
 
 void myinit(char* filename){
-
+	int* start, end;
+	struct* pcb;
+	addToRAM(filename, start, end);
+	pcb = makePCB(start, end);
+	addToReady(pcb);
 
 }
 
 //called after all the programs have been loaded
 void scheduler(){
-
-
-//check to see if the CPU is available (quanta is finished or nothing is assigned to the CPU)
-
+	
+	if(!cpuBusy){	//quanta finished or nothing is assigned to the cpu
+		IP = PC;		
+		
+	}
 //copy PC from PCB into the IP of the CPU
 
 //
