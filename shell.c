@@ -19,7 +19,6 @@ void shellUI(int argc, char* argv[]){
                 printf("$ ");
                 fgets(userInput, 999, stdin);
                 parse(userInput);
-                //interpretResult(result);      //gives error message if needed
         }
 
 }
@@ -54,15 +53,3 @@ void parse(char ui[]){
 }
 
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//not needed anymore bcz not returning int, just printing everything in interprter.c
-/*void interpretResult(int errCode){
-	if(errCode = 0) printf("good command");
-	if(errCode = 1) printf("Unknown command. Try 'help'");		
-	if(errCode = 2) printf("not right amount of arguments for this command. Enter 'help' to see possibilities");
-	if(errCode = 3) printf("File not found");
-}
-
-*/

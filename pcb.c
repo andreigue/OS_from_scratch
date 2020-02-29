@@ -1,18 +1,31 @@
 //pcb.c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-struct pcb{
-	int PC; //program counter: update when quanta is over, point to instruction in ram to be executed
-	int* start;
-	int* end;
-	struct pcb *next;
+#include "pcb.h"
+
+//typedef struct PCB{int start; int end; int PC; struct PCB *next;}PCB;
+
+//struct pcb *head=NULL;
+//struct pcb *current =NULL;
+
+PCB* makePCB(int start, int end){
+	PCB* newPCB= (PCB*)malloc(sizeof(PCB));
+	newPCB->PC= start;
+	newPCB->start = start;
+	newPCB->end = end;
+	return newPCB;
 }
 
-struct pcb *head=NULL;
-struct pcb *current =NULL;
+void deletePCB(PCB* pcb){
+	free(pcb);	
+}
 
+/*
 //display the list
 void printList(){
-	struct pcb *ptr = head;
+	struct PCB *ptr = head;
 	printf("\n[ ");
 
 	while(ptr!=NULL){
@@ -21,19 +34,5 @@ void printList(){
 	}
 	printf(" ]");
 }
+*/
 
-
-void insert 
-
-
-
-PCB* makePCB(int start, int end){
-
-	
-
-}
-
-//add PCB to tail of ready queue
-void addToReady(PCB* pcb){
-	
-}
