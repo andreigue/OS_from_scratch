@@ -7,22 +7,22 @@
 #include "ram.h"
 #include "kernel.h"
 int cpuBusy=0;//not busy=0
-
+int endoffFile
 struct CPU* myCPU=NULL;
 
 void run(int quanta){
-	
+	myCPU->quanta=quanta;
 	int i;
 	//set cpu to Busy
 	cpuBusy=1; //1=busy
 	//run the script by copying quanta lines of code from ram[] using IP into the IR
-	while(quanta>0 && myCPU->IP<EOF){
+	while(myCPU->quanta>0 && myCPU->IP<EOF){
 		
 		if(fgets(myCPU->IR, 999,ram[myCPU->IP])!=NULL){     //reading from IP, save in IR
 		//myCPU->IR=ram[myCPU->IP];
 		parse(myCPU->IR);       //from shell.h
 		}///////////////////////
-		if(quanta==0 && myCPU->IP<*head) roundRobin();
+		if(myCPU->quanta==0 && myCPU->IP<endofFile) roundRobin();
 		else{ //(myCPU->IP==EOF)
 		deletePCB(head);	//once remove pcb, break out the loop
 		
