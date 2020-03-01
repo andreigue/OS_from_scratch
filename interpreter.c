@@ -43,34 +43,19 @@ void interpreter(char *words[], int wordCount) {		//words[0] is cmd
 	}
 }
 
-int alreadyLoaded(){
-	int loaded = 0; //not loaded yet
-/*	if(){
-		//check here
-		loaded=1;
-	}
-*/	return loaded;
-}
 /////////////////////////////////////////////////////
 void exec(char *words[], int wordCount){
 	//check if more than 3 files
 	if(wordCount>4) printf("Too many files! Calm down junior!\n");
 	else if (wordCount == 1) printf("Tip: add some file(s) you want executed.\n");
-/*
-	//check to make sure that file names are different
-	else if(strcmp(words[1],words[2])==0) printf("Error! File %s already loaded\n",words[1]);
-	else if (strcmp(words[2],words[3])==0)  printf("Error! File  %s already loaded\n",words[2]);
-	else if (strcmp(words[1],words[3])==0)  printf("Error! File %s already loaded\n",words[1]);*/
-	//call 
 	else{
 		FILE* fp;
 		//call myinit in kernel.c for each program
 		for (int i=1; i<wordCount; i++){
 			fp = fopen(words[i], "rt");
 			printf("From exec(): Opening file %s\n",words[i]);
-		//	if(alreadyLoaded) printf("Error: File %s already loaded!\n",words[i]);
 			if(fp==NULL) printf("Error: File %s cannot be loaded! (inside exec())\n", words[i]);
-			else myinit(words[i]);
+			else myinit(words[i]);//kernel.c
 			fclose(fp);
 		}
 		printList(); //print the ready queue (function from kernel.c)

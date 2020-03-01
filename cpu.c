@@ -1,35 +1,41 @@
 #include <string.h>
 #include <stdio.h> 
-//#define DEFAULT_QUANTA 2
 #include "shell.h"
 #include "cpu.h"
 #include "pcb.h"
 #include "ram.h"
 #include "kernel.h"
 int cpuBusy=0;//not busy=0
-int endoffFile
+int endOfFile=head->end;	//end of the currently executed PCB
 struct CPU* myCPU=NULL;
 
 void run(int quanta){
-	myCPU->quanta=quanta;
 	int i;
 	//set cpu to Busy
 	cpuBusy=1; //1=busy
 	//run the script by copying quanta lines of code from ram[] using IP into the IR
-	while(myCPU->quanta>0 && myCPU->IP<EOF){
-		
-		if(fgets(myCPU->IR, 999,ram[myCPU->IP])!=NULL){     //reading from IP, save in IR
-		//myCPU->IR=ram[myCPU->IP];
-		parse(myCPU->IR);       //from shell.h
-		}///////////////////////
-		if(myCPU->quanta==0 && myCPU->IP<endofFile) roundRobin();
-		else{ //(myCPU->IP==EOF)
-		deletePCB(head);	//once remove pcb, break out the loop
-		
-		}	
-		quanta--;
+	
+	while(myCPU->quanta>0 && myCPU->IP<endOfFile){
+		if(ram[myCPU->IP]!=NULL){
+			strcpy(myCPU->IR, ram[myCPU->IP]);
+			parse(myCPU->IR);
+			myCPU->IP++;//point to next instruction in RAM
+			myCPU->quanta--;
+		}
+		else{
+			if(myCPU->quanta<=0){
+				head->PC=myCPU->IP;//update PCB IP to continue where left off
+				roundRobin();//kernel.c
+			}
+			else if(myCPU->IP>=endOfFile){
+				removeFromRAM(head);//ram.c
+				rmPCBfromReadyQ();//kernel.c
+			} 
+
+		}
 	}
+
 	//set CPU to notBusy
-	cpuBusy=0;//not busy	
+	cpuBusy=0;//not busy
 }
 

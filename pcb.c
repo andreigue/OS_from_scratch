@@ -15,12 +15,10 @@ PCB* makePCB(int start, int end){
 	newPCB->PC= start;
 	newPCB->start = start;
 	newPCB->end = end;
+	newPCB->next=NULL;
 	return newPCB;
 }
 
-void deletePCB(PCB* pcb){
-	free(pcb);	
-}
 
 /*
 //display the list

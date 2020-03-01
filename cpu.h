@@ -1,4 +1,4 @@
-int cpuBusy; //1==busy, 0==not busy
+extern int cpuBusy; //1==busy, 0==not busy
 void run(int quanta);
 
 struct CPU{

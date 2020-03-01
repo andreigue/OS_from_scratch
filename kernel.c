@@ -15,6 +15,7 @@ void scheduler();
 void addToReady(PCB* pcb);
 void printList();
 void roundRobin();
+void rmPCBfromReadyQ();
 int i=0;
 int y=0;
 
@@ -22,7 +23,7 @@ void main(int argc, char* argv[]) {
 	
 	printf("Kernel 1.0 loaded!\n");
 	shellUI(argc, argv); //inside shell.c
-	void myinit(char* filename);	//instantiate the kernel data structure
+//	void myinit(char* filename);	//instantiate the kernel data structure
 }
 
 void myinit(char* filename){
@@ -35,9 +36,9 @@ void myinit(char* filename){
 	PCB* pcb;
 	FILE* fp;
 	fp = fopen(filename, "r");
-	addToRAM(fp, start, end);
-	pcb = makePCB(*start, *end);
-	addToReady(pcb);
+	addToRAM(fp, start, end);//ram.c
+	pcb = makePCB(*start, *end);//pcb.c
+	addToReady(pcb);//kernel.c
 }
 
 //called after all the programs have been loaded
@@ -51,9 +52,9 @@ void scheduler(){
 			PCB* curPCB=head;
 			myCPU->IP = curPCB->PC; 		
 			run(myCPU->quanta);
-			curPCB->PC=myCPU->IP;
+		//	curPCB->PC=myCPU->IP;
 		//	roundRobin();
-		//else if(EOF	
+			
 		}else{	//CPU is busy
 			printf("Could not run program because the CPU is currently busy.\n");
 		}
@@ -69,22 +70,14 @@ void roundRobin(){
 
 //add PCB to tail of ready queue
 void addToReady(PCB* newPcb){
-	int ii=1; 
-	if(newPcb==NULL) printf("Unable to add newPCB to the readyQueue (kernel.c)\n");
-	PCB* current;
-	newPcb->next=NULL;
+	if(newPcb==NULL) printf("Unable to add newPCB to the readyQueue.\n");
 	
 	if (head==NULL){
                 head=newPcb;
 		tail=newPcb;
-               // head->next=NULL;
-                printf("From addToReady(): Added first node to beginning\nIts contents are:!!!!!!!!!!!!!!!!!!!!!!1\n");
-		printf("start: %d, end: %d, PC: %d\n",head->start, head->end, head->PC);
         }else{
 		tail->next=newPcb;
 		tail=newPcb;
-		printf("From addToReady(): Added another PCB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nit's contents are: \nstart: %d, end: %d, PC: %d\n",tail->start, tail->end, tail->PC);
-	
 	}
 }
 
@@ -102,4 +95,15 @@ void printList(){
 }
 
 
-
+void rmPCBfromReadyQ(){
+	if(head->next!=NULL){
+		PCB* tmp=head->next;//need temp in order to rm previous head
+		free(head);
+		head=tmp;
+		tmp==NULL;
+	}
+	else{//head->next==NULL
+		free(head);
+		head==NULL;
+	}
+}

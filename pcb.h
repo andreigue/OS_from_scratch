@@ -6,4 +6,3 @@ typedef struct PCB{
 }PCB;
 
 PCB* makePCB(int start, int end);
-void deletePCB(PCB* pcb);

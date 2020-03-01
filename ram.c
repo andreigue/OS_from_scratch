@@ -59,6 +59,11 @@ void emptyRAM(FILE* p){
 	for(i=0;i<1000;i++) ram[i]=NULL;
 }
 
+char* getCellFromRAM(int i){
+	return ram[i];
+	
+}
+
 void removeFromRAM(PCB* pcb){
 	int i;
 	for (i=pcb->start;i<pcb->end;i++){
