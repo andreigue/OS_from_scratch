@@ -13,8 +13,10 @@ PCB* tail=NULL;
 void myinit(char* filename);
 void scheduler();
 void addToReady(PCB* pcb);
-	int i=0;
-        int y=0;
+void printList();
+void roundRobin();
+int i=0;
+int y=0;
 
 void main(int argc, char* argv[]) {
 	
@@ -36,46 +38,68 @@ void myinit(char* filename){
 	addToRAM(fp, start, end);
 	pcb = makePCB(*start, *end);
 	addToReady(pcb);
-//	printList();	//from pcb.c
 }
 
 //called after all the programs have been loaded
 void scheduler(){
-	//myCPU = (struct CPU*)malloc(sizeof(struct CPU));
-	//myCPU -> quanta =2; //not sure how to make this into a constant
-
-	if(!cpuBusy){	//quanta finished or nothing is assigned to the cpu
-	//	IP = PC;		
-	//	runCPU(myCPU->quanta);
+	
+	struct CPU* myCPU = (struct CPU*)malloc(sizeof(struct CPU));
+	myCPU -> quanta =2; //not sure how to make this into a constant
+	while(head!=NULL){
+		if(!cpuBusy){	//quanta finished or nothing is assigned to the cpu
+		//copy PC from PCB into IP of CPU
+			PCB* curPCB=head;
+			myCPU->IP = curPCB->PC; 		
+			run(myCPU->quanta);
+			curPCB->PC=myCPU->IP;
+		//	roundRobin();
+		//else if(EOF	
+		}else{	//CPU is busy
+			printf("Could not run program because the CPU is currently busy.\n");
+		}
 	}
-//copy PC from PCB into the IP of the CPU
-
 }
-int ii=1;
+
+void roundRobin(){
+	PCB* PCBtoMove = head;
+	head=PCBtoMove->next;
+	tail->next=PCBtoMove;
+	tail= PCBtoMove;	
+}
+
 //add PCB to tail of ready queue
 void addToReady(PCB* newPcb){
+	int ii=1; 
 	if(newPcb==NULL) printf("Unable to add newPCB to the readyQueue (kernel.c)\n");
 	PCB* current;
 	newPcb->next=NULL;
 	
 	if (head==NULL){
                 head=newPcb;
+		tail=newPcb;
                // head->next=NULL;
                 printf("From addToReady(): Added first node to beginning\nIts contents are:!!!!!!!!!!!!!!!!!!!!!!1\n");
 		printf("start: %d, end: %d, PC: %d\n",head->start, head->end, head->PC);
-        }
+        }else{
+		tail->next=newPcb;
+		tail=newPcb;
+		printf("From addToReady(): Added another PCB!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nit's contents are: \nstart: %d, end: %d, PC: %d\n",tail->start, tail->end, tail->PC);
 	
-	while(true){
-		if(current->next==NULL){
-			current=current->next;
-			//printf("looping: now at pcb %d\n",i);
-			printf("current PCB info:!!!!!!!!!!!!!!!!\n");
-			printf("start: %d, end: %d, PC: %d\n",head->start, head->end, head->PC);
-			ii++;
-			break;
-		}
-	current->next=newPcb;
-	//printf("From addToReady(): newPcb added to end of list\n");
-	};
+	}
 }
+
+//print the ready queue
+void printList(){
+	printf("from printLst()!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	PCB* current1;
+	current1 = head;
+	int j =1;
+	while(current1!=NULL){
+		printf("Node %d: start: %d, end: %d, PC: %d\n",j,current1->start, current1->end, current1->PC);
+		current1=current1->next;
+		j++;
+	}
+}
+
+
 

@@ -73,6 +73,7 @@ void exec(char *words[], int wordCount){
 			else myinit(words[i]);
 			fclose(fp);
 		}
+		printList(); //print the ready queue (function from kernel.c)
 		//call scheduler() in kernel.c to run the loaded programs
 		scheduler();			
 	}	

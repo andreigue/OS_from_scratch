@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "kernel.h"
-
+#include "pcb.h"
 int getEmptyRAMcell();
 
 char* ram[10];
@@ -57,5 +57,12 @@ int getRAMindex(FILE* p){
 void emptyRAM(FILE* p){
 	int i;
 	for(i=0;i<1000;i++) ram[i]=NULL;
+}
+
+void removeFromRAM(PCB* pcb){
+	int i;
+	for (i=pcb->start;i<pcb->end;i++){
+		ram[i]=NULL;
+	}
 }
 
