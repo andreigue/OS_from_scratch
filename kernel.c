@@ -3,10 +3,10 @@
 #include <string.h>
 #include <stdlib.h> //for malloc
 #include <stdbool.h> 
+#include "pcb.h"
 #include "shell.h"
 #include "cpu.h"
 #include "ram.h"
-#include "pcb.h"
 
 PCB* head = NULL;
 PCB* tail=NULL;
@@ -39,12 +39,14 @@ void myinit(char* filename){
 	addToRAM(fp, start, end);//ram.c
 	pcb = makePCB(*start, *end);//pcb.c
 	addToReady(pcb);//kernel.c
+	printList();
 }
 
 //called after all the programs have been loaded
 void scheduler(){
-	
-	struct CPU* myCPU = (struct CPU*)malloc(sizeof(struct CPU));
+	printf("Inside scheduler()@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");	
+	struct CPU* myCPU;
+	myCPU = (struct CPU*)malloc(sizeof(struct CPU));
 	myCPU -> quanta =2; //not sure how to make this into a constant
 	while(head!=NULL){
 		if(!cpuBusy){	//quanta finished or nothing is assigned to the cpu

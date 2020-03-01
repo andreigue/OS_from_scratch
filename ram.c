@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 #include "kernel.h"
+#include <stdlib.h>
 #include "pcb.h"
 int getEmptyRAMcell();
 
 char* ram[10];
-
 void addToRAM(FILE *p, int *start, int *end){
 	//while(ram[*start]!=NULL) {*start=*start+1;}
 	printf("Passing to addToRAM *start = %d, *end = %d\n",*start, *end);
@@ -64,7 +64,7 @@ char* getCellFromRAM(int i){
 	
 }
 
-void removeFromRAM(PCB* pcb){
+void removeFromRAM(struct PCB *pcb){
 	int i;
 	for (i=pcb->start;i<pcb->end;i++){
 		ram[i]=NULL;

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <ctype.h>		//to use isdigit(c)
 #include <string.h>
-
+#include "pcb.h"
 #include "ram.h"
 #include "kernel.h"
 #include "shell.h"
@@ -55,12 +55,16 @@ void exec(char *words[], int wordCount){
 			fp = fopen(words[i], "rt");
 			printf("From exec(): Opening file %s\n",words[i]);
 			if(fp==NULL) printf("Error: File %s cannot be loaded! (inside exec())\n", words[i]);
-			else myinit(words[i]);//kernel.c
+			else {myinit(words[i]);//kernel.c
+			printf("Entering myinit() in exec()@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+			}
 			fclose(fp);
 		}
 		printList(); //print the ready queue (function from kernel.c)
 		//call scheduler() in kernel.c to run the loaded programs
-		scheduler();			
+		printf("Entering scheduler!@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+		scheduler();
+		printf("Finished with scheduler@@@@@@@@@@@@@@@@@@@@");			
 	}	
 
 }

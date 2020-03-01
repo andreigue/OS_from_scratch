@@ -1,16 +1,17 @@
 #include <string.h>
 #include <stdio.h> 
+#include <stdlib.h>
 #include "shell.h"
 #include "cpu.h"
 #include "pcb.h"
 #include "ram.h"
 #include "kernel.h"
 int cpuBusy=0;//not busy=0
-int endOfFile=head->end;	//end of the currently executed PCB
-struct CPU* myCPU=NULL;
 
 void run(int quanta){
 	int i;
+        struct CPU* myCPU=(struct CPU*)malloc(sizeof(struct CPU));
+        int endOfFile=head->end;	//end of the currently executed PCB
 	//set cpu to Busy
 	cpuBusy=1; //1=busy
 	//run the script by copying quanta lines of code from ram[] using IP into the IR

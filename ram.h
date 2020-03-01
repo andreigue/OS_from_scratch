@@ -1,4 +1,3 @@
-//#include "pcb.h"
 char* ram[10];
 char* getCellFromRAM(int i);
 void removeFromRAM(PCB* pcb);

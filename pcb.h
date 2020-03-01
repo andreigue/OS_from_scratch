@@ -4,5 +4,4 @@ typedef struct PCB{
   	int PC;
 	struct PCB *next;
 }PCB;
-
 PCB* makePCB(int start, int end);
