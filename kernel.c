@@ -45,15 +45,15 @@ void myinit(char* filename){
 //called after all the programs have been loaded
 void scheduler(){
 	printf("Inside scheduler()@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");	
-	struct CPU* myCPU;
-	myCPU = (struct CPU*)malloc(sizeof(struct CPU));
-	myCPU -> quanta =2; //not sure how to make this into a constant
+//	struct CPU* myCPU;
+//	myCPU = (struct CPU*)malloc(sizeof(struct CPU));
+	int quanta =2; //not sure how to make this into a constant
 	while(head!=NULL){
 		if(!cpuBusy){	//quanta finished or nothing is assigned to the cpu
 		//copy PC from PCB into IP of CPU
-			PCB* curPCB=head;
-			myCPU->IP = curPCB->PC; 		
-			run(myCPU->quanta);
+			//PCB* curPCB=head;
+			//myCPU->IP = curPCB->PC; 		
+			run(quanta);
 		//	curPCB->PC=myCPU->IP;
 		//	roundRobin();
 			
@@ -61,6 +61,7 @@ void scheduler(){
 			printf("Could not run program because the CPU is currently busy.\n");
 		}
 	}
+	
 }
 
 void roundRobin(){
